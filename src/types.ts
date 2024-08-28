@@ -1,4 +1,4 @@
-export interface Root {
+interface BusResponse {
   appRefreshTimeInSecond: string;
   busStop: BusStop[];
   caseNumber: number;
@@ -15,7 +15,7 @@ export interface Root {
   status: string;
 }
 
-export interface BusStop {
+interface BusStop {
   bus: Bus[];
   busIcon?: string;
   busStopId: string;
@@ -27,7 +27,7 @@ export interface BusStop {
   isSuspended: string;
 }
 
-export interface Bus {
+interface Bus {
   arrivalTimeInSecond: string;
   arrivalTimeText: string;
   busId: string;
@@ -40,7 +40,9 @@ export interface Bus {
   lineRef: string;
 }
 
-export interface BusLocation {
+interface BusLocation {
   latitude: number;
   longitude: number;
 }
+
+export { BusResponse };
