@@ -13,4 +13,14 @@ const response = await fetch(url, {
 });
 const data = await response.json();
 
+if (data.routeStatusRemarkContent === '停止服務') {
+  const alert = new Alert();
+  alert.title = data.routeStatusRemarkContent;
+  alert.message = data.footerRemarks;
+
+  presentAlert(alert);
+}
+
+//TODO: display the schedule
+
 // Script.complete();
