@@ -13,7 +13,7 @@ req.body = JSON.stringify({
 });
 
 const resp = await req.loadJSON();
-const data = await response.json();
+const data = await resp.json();
 
 if (data.routeStatusRemarkContent === '停止服務') {
   const alert = new Alert();
