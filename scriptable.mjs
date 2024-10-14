@@ -12,21 +12,17 @@ req.body = JSON.stringify({
   routeName: 'K17',
 });
 
-const resp = await req.loadJSON();
-const data = await resp.json();
+const data = await req.loadJSON();
+const alert = new Alert();
 
 if (data.routeStatusRemarkContent === '停止服務') {
-  const alert = new Alert();
   alert.title = data.routeStatusRemarkContent;
   alert.message = data.footerRemarks;
-  presentAlert(alert);
+} else {
+  const [bus] = data.busStop.find((bs) => bs.busStopId === FS_BUS_STOP_ID).bus;
+  alert.title = 'K17';
+  alert.message = bus.departureTimeText;
 }
 
-const [bus] = data.busStop.find((bs) => bs.busStopId === FS_BUS_STOP_ID).bus;
-
-const alert = new Alert();
-alert.title = 'K17';
-alert.message = bus.departureTimeText;
-presentAlert(alert);
-
+alert.presentAlert();
 Script.complete();
