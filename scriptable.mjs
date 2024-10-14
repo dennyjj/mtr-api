@@ -4,14 +4,15 @@ const headers = {
 };
 const FS_BUS_STOP_ID = 'K17-D010';
 
-const response = await fetch(url, {
-  method: 'POST',
-  headers,
-  body: JSON.stringify({
-    language: 'zh',
-    routeName: 'K17',
-  }),
+const req = new Request(url);
+req.method = 'POST';
+req.headers = headers;
+req.body = JSON.stringify({
+  language: 'zh',
+  routeName: 'K17',
 });
+
+const resp = await req.loadJSON();
 const data = await response.json();
 
 if (data.routeStatusRemarkContent === '停止服務') {
@@ -21,12 +22,11 @@ if (data.routeStatusRemarkContent === '停止服務') {
   presentAlert(alert);
 }
 
-const bus = data.busStop.find((bs) => bs.busStopId === FS_BUS_STOP_ID);
-console.log(bus);
+const [bus] = data.busStop.find((bs) => bs.busStopId === FS_BUS_STOP_ID).bus;
 
 const alert = new Alert();
 alert.title = 'K17';
-alert.message = bus[0].departureTimeText;
+alert.message = bus.departureTimeText;
 presentAlert(alert);
 
 Script.complete();
